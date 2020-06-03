@@ -10,11 +10,11 @@ Vue.use(Router)
 
 const routes =  new Router({
   routes: [
-    {
-      path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
-    },
+    // {
+    //   path: '/',
+    //   name: 'HelloWorld',
+    //   component: HelloWorld
+    // },
     //商城路由文件
     ...shop
   ]

@@ -36,7 +36,7 @@
      },
      /**首页信息 */
      {
-         path: "/shop/home",
+         path: "/",
          component: Home,
          redirect: "/shop/index",
          children:[
