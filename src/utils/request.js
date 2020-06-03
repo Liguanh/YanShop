@@ -10,6 +10,18 @@
 
  //定义请求拦截器
  Server.interceptors.request.use((config)=>{
+
+    let token = localStorage.getItem("shop_token");
+    if (token) {
+        //传递公共参数token
+        if ("params" in config) {
+            config.params.token = token;
+        } else {
+            config.params = {
+                token: token
+            }
+        }
+    }
     return config;
  },function(error){
      return Promise.reject(error);

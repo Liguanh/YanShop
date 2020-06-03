@@ -4,6 +4,8 @@ import HelloWorld from '@/components/HelloWorld'
 
 import shop from "./shop";
 
+import storage from "@/utils/storage";
+
 Vue.use(Router)
 
 const routes =  new Router({
@@ -25,13 +27,18 @@ routes.beforeEach((to,from,next)=>{
   if(to.hasOwnProperty("meta")){
     document.title = to.meta.title;
   }
+
   //如果在登陆或者注册页面发现用户token值存在直接跳转到用户中心页面
   if(to.path == "/shop/login" || to.path == "/shop/register"){
+
     let token = localStorage.getItem("shop_token");
     if(token !=null){
       next("/shop/mine");
     }
   }
+
+  //设置购物车的数量
+  storage.getCartNums();
 
   next();
 });

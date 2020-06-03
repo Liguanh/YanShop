@@ -61,7 +61,7 @@
 
 <script>
 import "@/assets/style/reset.css";
-import "@/assets/style/login.scss";
+import "@/assets/style/login.css";
 import AreaList from "@/utils/area";
 
 import urls from "@/utils/serverApi";
@@ -194,5 +194,5 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 </style>

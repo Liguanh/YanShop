@@ -29,7 +29,7 @@
 
 <script>
 import "@/assets/style/reset.css";
-import '@/assets/style/login.scss';
+import '@/assets/style/login.css';
 import storage from  '@/utils/storage';
 export default {
   name: '',
@@ -67,5 +67,5 @@ export default {
 </script>
 
 <style lang="scss"scoped>
-
+  
 </style>
