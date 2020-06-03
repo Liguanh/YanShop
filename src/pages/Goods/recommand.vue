@@ -42,10 +42,17 @@
     </van-goods-action>
 
     <!-- 商品的sku的信息 -->
-    <van-sku v-model="skuShow" :goods-id="goods_id" :sku="sku" :goods="goods" @add-cart="addCart" :custom-stepper-config="customStepperConfig" @sku-selected="selectSku"/>
+    <van-sku
+      v-model="skuShow"
+      :goods-id="goods_id"
+      :sku="sku"
+      :goods="goods"
+      @add-cart="addCart"
+      :custom-stepper-config="customStepperConfig"
+      @sku-selected="selectSku"
+    />
   </div>
 </template>
-
 <script>
 import "@/assets/style/reset.css";
 import urls from "@/utils/serverApi";
@@ -56,6 +63,8 @@ export default {
     this.goods_id = this.$route.params.id;
 
     this.getGoodsInfo();
+
+    this.getJsApi();
   },
   data() {
     return {
@@ -70,13 +79,11 @@ export default {
       sku: {
         // 所有sku规格类目与其值的从属关系，比如商品有颜色和尺码两大类规格，颜色下面又有红色和蓝色两个规格值。
         // 可以理解为一个商品可以有多个规格类目，一个规格类目下可以有多个规格值。
-        tree: [
-        ],
+        tree: [],
         // 所有 sku 的组合列表，比如红色、M 码为一个 sku 组合，红色、S 码为另一个组合
-        list: [
-        ],
+        list: [],
         price: "10.00", // 默认价格（单位元）
-        stock_num: 100,
+        stock_num: 100
       },
       goods: {
         // 默认商品 sku 缩略图
@@ -84,54 +91,56 @@ export default {
           "https://cdn.it120.cc/apifactory/2018/11/06/b35506df736e9c093ffc7b453650057b.jpg"
       },
       goods_num: 1,
-      customStepperConfig:{
+      customStepperConfig: {
         // 步进器变化的回调
         handleStepperChange: currentValue => {
           this.goods_num = currentValue;
-        },
+        }
       },
-      propertiesName:"",
-      propertyChildIds:"",
+      propertiesName: "",
+      propertyChildIds: "",
+
+      //微信分享
+      wxShare: null
     };
   },
   computed: {},
   watch: {},
   methods: {
     //选择sku的时候触发的事件
-    selectSku(data){
+    selectSku(data) {
       console.log(data);
 
       this.propertyChildIds = `${data.selectedSkuComb.id}:${data.skuValue.id}`;
       this.propertiesName = data.skuValue.name;
 
       this.$axios({
-        url:"https://api.it120.cc/small4/shop/goods/price",
-        params:{
+        url: "https://api.it120.cc/small4/shop/goods/price",
+        params: {
           goodsId: this.goods_id,
-          propertyChildIds: this.propertyChildIds,
+          propertyChildIds: this.propertyChildIds
         }
-      }).then(res=>{
+      }).then(res => {
         console.log(res);
         this.sku.price = res.data.originalPrice;
         this.sku.stock_num = res.data.stores;
-      })
+      });
     },
     //设置商品的sku属性
-    setSku(properties){
+    setSku(properties) {
       console.log(properties);
-      let trees  = [];
+      let trees = [];
       let list = [];
       //sku属性循环
-      properties.forEach((item,index)=>{
-       
-       //设置sku中tree属性
+      properties.forEach((item, index) => {
+        //设置sku中tree属性
         let obj = new Object();
         obj.k = item.name;
         obj.k_s = `s${item.id}`;
         obj.v = [];
 
         //遍历属性规格
-        item.childsCurGoods.forEach((it,ind)=>{
+        item.childsCurGoods.forEach((it, ind) => {
           obj.v.push({
             id: it.id,
             name: it.name
@@ -141,14 +150,14 @@ export default {
           let tmp = new Object();
           tmp.id = item.id;
           tmp[obj.k_s] = it.id.toString();
-          tmp.price = this.goods_info.originalPrice*100;
+          tmp.price = this.goods_info.originalPrice * 100;
           tmp.stock_num = this.goods_info.stores;
           list.push(tmp);
-        })
+        });
         //设置tree属性
         trees.push(obj);
-      })
-    
+      });
+
       this.sku.tree = trees;
       this.sku.list = list;
     },
@@ -162,12 +171,12 @@ export default {
       }).then(res => {
         console.log(res);
         if (res.code == 0) {
-          this.goods_imgs = res.data.pics;//商品的轮播图
-          this.goods_info = res.data.basicInfo;//商品基本信息
-          this.goods_content = res.data.content;//商品简介
-          
+          this.goods_imgs = res.data.pics; //商品的轮播图
+          this.goods_info = res.data.basicInfo; //商品基本信息
+          this.goods_content = res.data.content; //商品简介
+
           //商品的sku信息
-          this.setSku(res.data.properties);//设置商品的sku信息
+          this.setSku(res.data.properties); //设置商品的sku信息
           this.sku.price = this.goods_info.originalPrice;
         }
       });
@@ -204,18 +213,24 @@ export default {
           storage.setStorage("shop_cart", arr, true);
         } else {
           data.forEach((item, index) => {
-            if (item.id == this.goods_id && item.properties ==this.propertyChildIds) {
+            if (
+              item.id == this.goods_id &&
+              item.properties == this.propertyChildIds
+            ) {
               count++;
             }
           });
           // 判断是否重复添加
           if (count > 0) {
             data.map((item, index) => {
-              if (item.id == this.goods_id && item.properties ==this.propertyChildIds) {
+              if (
+                item.id == this.goods_id &&
+                item.properties == this.propertyChildIds
+              ) {
                 item.nums += this.goods_num;
               }
             });
-          }else{
+          } else {
             data.push(object);
           }
 
@@ -230,9 +245,42 @@ export default {
       }
       console.log(token);
     },
-    gotoBack(){
+    gotoBack() {
       this.$router.go(-1);
-    }
+    },
+    //获取微信jsApi信息
+    getJsApi() {
+      console.log(location);
+      this.$axios({
+        url: "/api/wechat/share/index",
+        params: {
+          url: location.origin
+        }
+      }).then(res => {
+        console.log(res);
+        wx.config({
+          debug: true,
+
+          appId: res.data.appId,
+
+          timestamp: res.data.timestamp,
+
+          signature: res.data.signature,
+
+          nonceStr: res.data.nonceStr,
+
+          jsApiList: [
+            // 所有要调用的 API 都要加到这个列表中
+
+            "onMenuShareTimeline", // 分享到朋友圈接口
+
+            "onMenuShareAppMessage"
+          ]
+        });
+      });
+    },
+
+    sharetoWx() {}
   }
 };
 </script>
