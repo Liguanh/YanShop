@@ -60,6 +60,7 @@ export default {
         }
         console.log(res);
         storage.setStorage("shop_token",res.data.token);
+        this.$router.go(-1);
       });
     }
   },
