@@ -260,7 +260,6 @@ export default {
         console.log(res);
         wx.config({
           debug: true,
-
           appId: res.data.appId,
 
           timestamp: res.data.timestamp,
@@ -276,6 +275,32 @@ export default {
 
             "onMenuShareAppMessage"
           ]
+        });
+
+        wx.ready(function() {
+          //需在用户可能点击分享按钮前就先调用
+          wx.updateAppMessageShareData({
+            title: "", // 分享标题
+            desc: "", // 分享描述
+            link: "", // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+            imgUrl: "", // 分享图标
+            success: function() {
+              // 设置成功
+            }
+          });
+          wx.onMenuShareTimeline({
+            title: "今天是个好天气，大家都在努力学习~朋友圈分享测试", // 商品标题
+
+            desc: "测试分享", // 商品描述
+
+            link: "http://www.wyunfei.com/pay1.html", // 好友从朋友圈点进去的页面
+
+            imgUrl: "http://www.wyunfei.com/1.png", // 商品图片
+
+            success: function(res) {
+              alert("分享成功");
+            }
+          });
         });
       });
     },
