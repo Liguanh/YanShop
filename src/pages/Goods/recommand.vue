@@ -271,24 +271,26 @@ export default {
           jsApiList: [
             // 所有要调用的 API 都要加到这个列表中
 
-            "onMenuShareTimeline", // 分享到朋友圈接口
+            "updateTimelineShareData", // 分享到朋友圈接口
 
-            "onMenuShareAppMessage"
+            "updateAppMessageShareData"
           ]
         });
 
         wx.ready(function() {
           //需在用户可能点击分享按钮前就先调用
           wx.updateAppMessageShareData({
-            title: "111", // 分享标题
-            desc: "111", // 分享描述
-            link: "1111", // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-            imgUrl: "1222222", // 分享图标
+            title: this.goods_info.name, // 分享标题
+            desc: "严选商城测试信息", // 分享描述
+            link: location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+            imgUrl: this.goods_info.pic, // 分享图标
             success: function() {
               // 设置成功
+              this.$toast.success("分享成功");
             }
           });
-          wx.onMenuShareTimeline({
+          //分享到朋友圈
+          wx.updateTimelineShareData({
             title: "今天是个好天气，大家都在努力学习~朋友圈分享测试", // 商品标题
 
             desc: "测试分享", // 商品描述
@@ -298,7 +300,7 @@ export default {
             imgUrl: "http://www.wyunfei.com/1.png", // 商品图片
 
             success: function(res) {
-              alert("分享成功");
+              this.$toast.success("分享成功");
             }
           });
         });
