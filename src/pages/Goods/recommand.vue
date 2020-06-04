@@ -254,7 +254,7 @@ export default {
       this.$axios({
         url: "https://api.happyknowshare.cn/api/wechat/share/index",
         params: {
-          url: location.origin
+          url: location.href.split('#')[0],
         }
       }).then(res => {
         console.log(res);
