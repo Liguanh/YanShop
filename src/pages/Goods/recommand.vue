@@ -259,7 +259,7 @@ export default {
       }).then(res => {
         console.log(res);
         wx.config({
-          debug: true,
+          debug: false,
           appId: res.data.appId,
 
           timestamp: res.data.timestamp,
@@ -277,13 +277,13 @@ export default {
           ]
         });
 
-        wx.ready(function() {
+        wx.ready(()=>{
           //需在用户可能点击分享按钮前就先调用
           wx.updateAppMessageShareData({
-            title: "你好", // 分享标题
-            desc: "严选商城测试信息", // 分享描述
+            title: this.goods_info.name, // 分享标题
+            desc: this.goods_info.characteristic, // 分享描述
             link: location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-            imgUrl: "http://img.happyknowshare.cn/test.jpg", // 分享图标
+            imgUrl: this.goods_imgs[0].pic, // 分享图标
             success: function() {
               // 设置成功
               this.$toast.success("分享成功");
@@ -291,14 +291,10 @@ export default {
           });
           //分享到朋友圈
           wx.updateTimelineShareData({
-            title: "今天是个好天气，大家都在努力学习~朋友圈分享测试", // 商品标题
-
-            desc: "测试分享", // 商品描述
-
-            link: location.href, // 好友从朋友圈点进去的页面
-
-            imgUrl: "http://img.happyknowshare.cn/test.jpg", // 商品图片
-
+            title: this.goods_info.name, // 分享标题
+            desc: this.goods_info.characteristic, // 分享描述
+            link: location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+            imgUrl: this.goods_imgs[0].pic, // 分享图标
             success: (res)=> {
               this.$toast.success("分享成功");
             }
