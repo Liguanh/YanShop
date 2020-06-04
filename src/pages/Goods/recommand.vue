@@ -252,7 +252,7 @@ export default {
     getJsApi() {
       console.log(location);
       this.$axios({
-        url: "http://api.happyknowshre.cn/api/wechat/share/index",
+        url: "https://api.happyknowshare.cn/api/wechat/share/index",
         params: {
           url: location.origin
         }
