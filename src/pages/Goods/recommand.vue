@@ -109,7 +109,7 @@ export default {
   methods: {
     //选择sku的时候触发的事件
     selectSku(data) {
-      console.log(data);
+      // console.log(data);
 
       this.propertyChildIds = `${data.selectedSkuComb.id}:${data.skuValue.id}`;
       this.propertiesName = data.skuValue.name;
@@ -121,14 +121,14 @@ export default {
           propertyChildIds: this.propertyChildIds
         }
       }).then(res => {
-        console.log(res);
+        // console.log(res);
         this.sku.price = res.data.originalPrice;
         this.sku.stock_num = res.data.stores;
       });
     },
     //设置商品的sku属性
     setSku(properties) {
-      console.log(properties);
+      // console.log(properties);
       let trees = [];
       let list = [];
       //sku属性循环
@@ -169,7 +169,7 @@ export default {
         url: urls.goodsDetail,
         params: { id: this.goods_id }
       }).then(res => {
-        console.log(res);
+        // console.log(res);
         if (res.code == 0) {
           this.goods_imgs = res.data.pics; //商品的轮播图
           this.goods_info = res.data.basicInfo; //商品基本信息
@@ -243,7 +243,7 @@ export default {
         this.$toast.fail("请先登录");
         this.$router.push("/shop/login");
       }
-      console.log(token);
+      // console.log(token);
     },
     gotoBack() {
       this.$router.go(-1);
