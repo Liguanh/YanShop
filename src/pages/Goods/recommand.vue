@@ -280,10 +280,10 @@ export default {
         wx.ready(function() {
           //需在用户可能点击分享按钮前就先调用
           wx.updateAppMessageShareData({
-            title: this.goods_info.name, // 分享标题
+            title: "你好", // 分享标题
             desc: "严选商城测试信息", // 分享描述
             link: location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-            imgUrl: this.goods_info.pic, // 分享图标
+            imgUrl: "http://img.happyknowshare.cn/test.jpg", // 分享图标
             success: function() {
               // 设置成功
               this.$toast.success("分享成功");
@@ -295,11 +295,11 @@ export default {
 
             desc: "测试分享", // 商品描述
 
-            link: "http://www.wyunfei.com/pay1.html", // 好友从朋友圈点进去的页面
+            link: location.href, // 好友从朋友圈点进去的页面
 
-            imgUrl: "http://www.wyunfei.com/1.png", // 商品图片
+            imgUrl: "http://img.happyknowshare.cn/test.jpg", // 商品图片
 
-            success: function(res) {
+            success: (res)=> {
               this.$toast.success("分享成功");
             }
           });
