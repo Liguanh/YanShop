@@ -12,6 +12,7 @@
 
  import recommandDetail from "@/pages/Goods/recommand";
  import confirmOrder from "@/pages/Goods/orderConfirm";
+ import payConfirm from "@/pages/Goods/payConfirm";
  import addAddress from "@/pages/User/addAddress";
 
  //定义路由严选商城专用
@@ -88,6 +89,13 @@
              title:"严选商城-订单确认",
          }
      },{
+        path:"/shop/pay/confirm",
+        name: "pay_confirm",
+        component: payConfirm,
+        meta:{
+            title:"严选商城-支付确认",
+        }
+    },{
         path: "/shop/add/address",
         name: "add_address",
         component: addAddress,

@@ -7,12 +7,12 @@
         <van-image :src="item.imageUrl" />
       </template>
       <template #num>
-        <van-stepper v-model="item.nums" />
+        <van-stepper v-model="item.nums" @change="changeNum"/>
       </template>
     </van-card>
 
     <van-submit-bar :price="getTotals" button-text="下单" style="margin-bottom:1rem;" @submit="confirmOrder">
-      <van-checkbox v-model="checked">全选</van-checkbox>
+      <van-checkbox v-model="checked" >全选</van-checkbox>
     </van-submit-bar>
   </div>
 </template>
@@ -69,6 +69,9 @@ export default {
     },
     confirmOrder(){
       this.$router.push("/shop/order/confirm")
+    },
+    changeNum(value){
+       storage.setStorage("shop_cart",this.cartList,true);
     }
   }
 };

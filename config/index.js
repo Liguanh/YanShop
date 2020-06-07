@@ -12,10 +12,10 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api':{
-        target:"https://api.happyknowshare.cn/",
+        target:"https://api.it120.cc/small4/",
         changeOrigin: true,
         pathRewrite:{
-          "^/api":"/api"
+          "^/api":""
         }
       }
     },

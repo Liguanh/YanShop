@@ -118,9 +118,13 @@ export default {
         url:urls.goodsList
       }).then(res=>{
         if(res.code == 0){
+          let arr = [];
           for(var i=0;i<6;i++){
             let index = parseInt(Math.random()*res.data.length);
-            console.log(index);
+            if(arr.includes(index)){
+              i--;
+              continue;
+            }
             this.recommandList.push(res.data[index]);
           }
           console.log(this.recommandList);
@@ -138,7 +142,7 @@ export default {
 <style lang="scss" scoped>
 .box {
   background-color: #f8f8f8;
-  padding-bottom: .88rem;
+  padding-bottom: 1rem;
   #swiper {
     width: 100%;
     position: relative;

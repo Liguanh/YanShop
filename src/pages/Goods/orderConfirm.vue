@@ -1,6 +1,6 @@
 <template>
   <div>
-    <van-nav-bar title="订单确认" left-arrow />
+    <van-nav-bar title="订单确认" left-arrow @click-left="goBack"/>
 
     <van-contact-card
       type="edit"
@@ -33,11 +33,16 @@
 
 <script>
 import storage from "@/utils/storage";
+import qs from 'qs';
 export default {
   name: "",
   mounted() {
     this.getAddress();
     this.getCartList();
+    if(this.cartList.length == 0){
+      this.$toast.fail("没有检测到订单信息");
+      this.$router.push("/");
+    }
   },
   data() {
     return {
@@ -58,6 +63,9 @@ export default {
   },
   watch: {},
   methods: {
+    goBack(){
+      this.$router.go(-1);
+    },
     addAddress() {
       this.$router.push("/shop/add/address");
     },
@@ -95,17 +103,12 @@ export default {
             obj.logisticsType = 0;
             arr.push(obj);
         })
-        console.log(arr);
-       
-        this.$axios({
-            url:"https://api.it120.cc/small4/order/create",
-            method:"post",
-            params:{
-                goodsJsonStr: arr,
-            }
-        }).then(res=>{
-            console.log(res);
-        })
+        let data = new FormData();
+        data.append("goodsJsonStr",JSON.stringify(arr));
+        this.$axios.post('/api/order/create',data).then(res=>{
+          storage.removeStorage('shop_cart');
+          this.$router.push({name:"pay_confirm",params:{orderNumber:res.data.orderNumber,amount:this.totalAmounts}});
+        });
     }
   }
 };
