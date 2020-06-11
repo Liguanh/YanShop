@@ -79,9 +79,11 @@ export default {
       sku: {
         // 所有sku规格类目与其值的从属关系，比如商品有颜色和尺码两大类规格，颜色下面又有红色和蓝色两个规格值。
         // 可以理解为一个商品可以有多个规格类目，一个规格类目下可以有多个规格值。
-        tree: [],
+        tree: [
+        ],
         // 所有 sku 的组合列表，比如红色、M 码为一个 sku 组合，红色、S 码为另一个组合
-        list: [],
+        list: [
+        ],
         price: "10.00", // 默认价格（单位元）
         stock_num: 100
       },
@@ -128,7 +130,7 @@ export default {
     },
     //设置商品的sku属性
     setSku(properties) {
-      // console.log(properties);
+      console.log(properties);
       let trees = [];
       let list = [];
       //sku属性循环
@@ -136,7 +138,7 @@ export default {
         //设置sku中tree属性
         let obj = new Object();
         obj.k = item.name;
-        obj.k_s = `s${item.id}`;
+        obj.k_s = `s_${item.id}`;
         obj.v = [];
 
         //遍历属性规格
@@ -146,17 +148,53 @@ export default {
             name: it.name
           });
 
-          //list对应的sku规格的配置
-          let tmp = new Object();
-          tmp.id = item.id;
-          tmp[obj.k_s] = it.id.toString();
-          tmp.price = this.goods_info.originalPrice * 100;
-          tmp.stock_num = this.goods_info.stores;
-          list.push(tmp);
+          // //list对应的sku规格的配置
+          // let tmp = new Object();
+          // tmp.id = item.id;
+          // tmp[obj.k_s] = it.id.toString();
+          // tmp.price = this.goods_info.originalPrice * 100;
+          // tmp.stock_num = this.goods_info.stores;
+          // list.push(tmp);
         });
         //设置tree属性
         trees.push(obj);
       });
+      console.log(trees);
+
+      //处理list数据的内容
+      if (trees.length > 1) {
+        //组装list的数据
+        trees.reduce((item1, item2) => {
+          //进行两两匹配
+          item1.v.forEach(data1 => {
+            if (item2) {
+              item2.v.forEach(data2 => {
+                console.log(data2);
+                let tmp = new Object();
+                tmp.id = item1.k_s.split("_")[1];
+                tmp[item1.k_s] = data1.id;
+                tmp[item2.k_s] = data2.id;
+                tmp.price = this.goods_info.originalPrice * 100;
+                tmp.stock_num = this.goods_info.stores;
+                list.push(tmp);
+              });
+            }
+          });
+        });
+      }else{
+        trees.forEach((item)=>{
+              item.v.forEach(data=>{
+                let tmp = new Object();
+                tmp.id = item.k_s.split("_")[1];
+                tmp[item.k_s] = data.id;
+                tmp.price = this.goods_info.originalPrice * 100;
+                tmp.stock_num = this.goods_info.stores;
+                list.push(tmp);
+              })
+        })
+      }
+
+      console.log(list);
 
       this.sku.tree = trees;
       this.sku.list = list;
@@ -254,7 +292,7 @@ export default {
       this.$axios({
         url: "https://api.happyknowshare.cn/api/wechat/share/index",
         params: {
-          url: location.href.split('#')[0],
+          url: location.href.split("#")[0]
         }
       }).then(res => {
         console.log(res);
@@ -277,7 +315,7 @@ export default {
           ]
         });
 
-        wx.ready(()=>{
+        wx.ready(() => {
           //需在用户可能点击分享按钮前就先调用
           wx.updateAppMessageShareData({
             title: this.goods_info.name, // 分享标题
@@ -295,7 +333,7 @@ export default {
             desc: this.goods_info.characteristic, // 分享描述
             link: location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
             imgUrl: this.goods_imgs[0].pic, // 分享图标
-            success: (res)=> {
+            success: res => {
               this.$toast.success("分享成功");
             }
           });
