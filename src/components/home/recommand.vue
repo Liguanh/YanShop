@@ -15,7 +15,7 @@
           <img :src="item.pic" />
         </p>
         <div>
-          <p>{{item.name}}</p>
+          <p v-html="item.name"></p>
           <p>{{item.characteristic}}</p>
           <p>¥{{item.originalPrice}}</p>
         </div>

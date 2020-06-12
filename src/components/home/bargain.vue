@@ -10,7 +10,7 @@
         <img :src="item.pic" />
       </div>
       <div class="item-right">
-        <p>{{item.name}}</p>
+        <p v-html="item.name"></p>
         <p>{{item.characteristic}}</p>
         <ol>
           <li>
