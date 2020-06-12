@@ -10,7 +10,10 @@
 
  //定义请求拦截器
  Server.interceptors.request.use((config)=>{
-
+     //如果接口指定说不需要携带token值，那么
+    if ("params" in config && config.params.noToken == true) {
+        return config;
+    }
     let token = localStorage.getItem("shop_token");
     if (token) {
         //传递公共参数token
