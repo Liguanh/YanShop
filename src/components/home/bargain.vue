@@ -1,10 +1,10 @@
 <template>
   <!-- 全民砍价 -->
   <div id="product">
-    <p class="product-head">
+    <router-link tag="p" class="product-head" to="/shop/cut/list">
       全民砍价
       <van-icon name="arrow" size="20" />
-    </p>
+    </router-link>
     <div class="product-item" v-for="(item,index) in cutList" :key="index">
       <div class="item-left">
         <img :src="item.pic" />

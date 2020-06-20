@@ -15,14 +15,14 @@
         <van-icon name="gift" size="35" color="#DD0000" />
         <figcaption>礼券</figcaption>
       </figure>
-      <figure>
+      <router-link tag="figure" to="/shop/cut/list">
         <van-icon name="coupon" size="35" color="#DD0000" />
         <figcaption>砍价</figcaption>
-      </figure>
-      <figure>
-        <van-icon name="bookmark" size="35" color="#DD0000" />
+      </router-link>
+      <router-link tag="figure" to="/shop/special/list">
+         <van-icon name="bookmark" size="35" color="#DD0000" />
         <figcaption>专栏</figcaption>
-      </figure>
+      </router-link>
     </nav>
   </div>
 </template>
@@ -53,7 +53,7 @@ export default {
           this.bannerList = res.data;
         }
       });
-    }
+    },
   }
 };
 </script>

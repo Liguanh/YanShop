@@ -4,16 +4,31 @@
  import Login from "@/pages/Login/login";
  import Register from "@/pages/Login/register";
 
+ //首页
  import Home from "@/pages/Home/home";
+ //首页
  import index from "@/pages/Home/index";
+ //分类页面
  import category from "@/pages/Home/category";
+ //购物车页面
  import cart from "@/pages/Home/cart";
+ //个人中心页面
  import mine from "@/pages/Home/mine";
 
+ // 推荐商品详情
  import recommandDetail from "@/pages/Goods/recommand";
+ //确认订单
  import confirmOrder from "@/pages/Goods/orderConfirm";
+ // 确认支付
  import payConfirm from "@/pages/Goods/payConfirm";
+ //添加地址
  import addAddress from "@/pages/User/addAddress";
+
+ //砍价列表
+ import CutList from "@/pages/Goods/CutList";
+ import recommandList from "@/pages/Goods/recommandList";
+ import specialList from "@/pages/Article/specialList";
+ import special from "@/pages/Article/special";
 
  //定义路由严选商城专用
  const routes = [
@@ -74,14 +89,54 @@
                },
             },
          ]
-     },{
+     },
+     //砍价商品列表
+     {
+        path:"/shop/cut/list",
+        name: "shop_cut",
+        component: CutList,
+        meta:{
+            title:"严选商城-砍价列表"
+        }
+     },
+     //专栏列表
+     {
+         path:"/shop/special/list",
+         name: "special_list",
+         component: specialList,
+         meta:{
+            title:"严选商城-专栏列表"
+        }
+     },
+     //专栏详情
+     {
+        path: "/shop/special/:id",
+        name: "special",
+        component: special,
+        meta:{
+            title: "严选商城-专栏文章"
+        }
+     },
+     //推荐商品列表
+     {
+        path:"/shop/recommand/list",
+        name: "recommand_list",
+        component: recommandList,
+        meta:{
+           title:"严选商城-推荐列表"
+       }
+    },
+     //商品详情页，推荐页面
+     {
          path: "/shop/recommand/:id",
          name: "shop_recommand",
          component: recommandDetail,
          meta:{
              title: "严选商城-推荐商品"
          }
-     },{
+     },
+     //订单确认页面
+     {
          path:"/shop/order/confirm",
          name: "order_confirm",
          component: confirmOrder,
