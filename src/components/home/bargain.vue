@@ -37,7 +37,7 @@ import urls from "@/utils/serverApi";
 export default {
   name: "",
   mounted() {
-      this.getCut();
+    this.getCut();
   },
   data() {
     return {
@@ -62,70 +62,74 @@ export default {
     }
   }
 };
+
+
 </script>
 
 <style lang="scss" scoped>
-#product{
-    background-color: #FFF;
-    margin-bottom: .2rem;
-    .product-head{
-      line-height: .8rem;
-      font-size: .35rem;
-      
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .product-item{
-      width: 100%;
-      border-top: #dddddd 1px solid;
-      display: flex;
-      padding: .2rem;
-      box-sizing: border-box;
-      .item-left{
-          width: 30%;
-        img{
-          width: 100%;
+#product {
+  background-color: #fff;
+  margin-bottom: 0.2rem;
+  .product-head {
+    line-height: 0.8rem;
+    font-size: 0.35rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .product-item {
+    width: 100%;
+    border-top: #dddddd 1px solid;
+    display: flex;
+    padding: 0.2rem;
+    box-sizing: border-box;
+    .item-left {
+      width: 30%;
+      img {
+        width: 100%;
         //   height: 2.4rem;
-          border-radius: .1rem;
-        }
+        border-radius: 0.1rem;
       }
-      .item-right{
-        width: 70%;
-        margin-left: .2rem;
-        p:nth-child(1){
-          font-size: .35rem;
-          margin-bottom: .2rem;
+    }
+    .item-right {
+      width: 70%;
+      margin-left: 0.2rem;
+      p:nth-child(1) {
+        font-size: 0.35rem;
+        margin-bottom: 0.2rem;
+      }
+      p:nth-child(2) {
+        color: #808080;
+        font-size: 0.2rem;
+      }
+      ol {
+        width: 100%;
+        display: flex;
+        margin-top: 0.8rem;
+        justify-content: space-between;
+        li {
+          float: left;
+          width: 40%;
+          text-indent: 0.15rem;
+          p:nth-child(1),
+          p:nth-child(2) {
+            font-size: 0.3rem;
+          }
         }
-        p:nth-child(2){
-          color: #808080;
-          font-size: .2rem;
+        li:nth-child(1) {
+          p:nth-child(1) {
+            color: #dd0000;
+            font-size: bold;
+          }
         }
-        ol{
-          width: 100%;
-          display: flex;
-          margin-top: .8rem;
-          justify-content: space-between;
-          li{
-            float: left;
-            width: 40%;
-            text-indent: .15rem;
-            p:nth-child(1),p:nth-child(2){
-              font-size: .3rem;
-            }
-          }
-          li:nth-child(1){
-            p:nth-child(1){
-              color: #DD0000;
-              font-size: bold;
-            }
-          }
-          li:nth-child(2),li:nth-child(3){
-            color: #B0B0B0;
-            font-size: .3rem;
-          }
+        li:nth-child(2),
+        li:nth-child(3) {
+          color: #b0b0b0;
+          font-size: 0.3rem;
         }
       }
     }
+  }
 }
 </style>

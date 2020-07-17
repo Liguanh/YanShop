@@ -5,7 +5,7 @@
       <van-icon name="arrow" />
     </p>
     <van-swipe :loop="false" :width="320" :show-indicators="false">
-      <van-swipe-item v-for="(item,index) in articleList" :key="index">
+      <van-swipe-item v-for="(item,index) in articleList" :key="index" @click="goNews(item.id)">
         <img :src="item.pic" class="art" />
         <p class="article-title" v-html="item.title"></p>
         <p class="desc">{{item.descript}}</p>
@@ -40,6 +40,9 @@ export default {
         console.log(res);
         this.articleList = res.data;
       });
+    },
+    goNews(id){
+      this.$router.push("/shop/special/"+id)
     }
   }
 };

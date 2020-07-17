@@ -9,7 +9,7 @@
 
     <!-- 砍价列表 -->
     <div id="product">
-      <div class="product-item" v-for="(item,index) in cutList" :key="index">
+      <div class="product-item" v-for="(item,index) in cutList" :key="index" @click="goBargain(item.id)">
         <div class="item-left">
           <img :src="item.pic" />
         </div>
@@ -55,6 +55,9 @@ export default {
   methods: {
     goBack() {
       this.$router.go(-1);
+    },
+    goBargain(id){
+      this.$router.push("/shop/cut/detail/"+id)
     },
     getCutList() {
       this.$axios({

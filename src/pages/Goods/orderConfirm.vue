@@ -103,13 +103,16 @@ export default {
             obj.logisticsType = 0;
             arr.push(obj);
         })
+
         let data = new FormData();
         data.append("goodsJsonStr",JSON.stringify(arr));
-        this.$axios.post('/api/order/create',data).then(res=>{
+
+        this.$axios.post('https://api.it120.cc/small4/order/create',data).then(res=>{
           storage.removeStorage('shop_cart');
           this.$router.push({name:"pay_confirm",params:{orderNumber:res.data.orderNumber,amount:this.totalAmounts}});
         });
     }
+    
   }
 };
 </script>

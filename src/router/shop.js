@@ -26,6 +26,7 @@
 
  //砍价列表
  import CutList from "@/pages/Goods/CutList";
+ import BargainDetail from "@/pages/Goods/bargain";
  import recommandList from "@/pages/Goods/recommandList";
  import specialList from "@/pages/Article/specialList";
  import special from "@/pages/Article/special";
@@ -97,6 +98,15 @@
         component: CutList,
         meta:{
             title:"严选商城-砍价列表"
+        }
+     },
+     //砍价详情信息
+     {
+        path: "/shop/cut/detail/:id",
+        name: "shop_cut_detail",
+        component: BargainDetail,
+        meta:{
+            title: "严选商城-砍价详情"
         }
      },
      //专栏列表
